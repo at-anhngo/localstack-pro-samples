@@ -18,8 +18,8 @@ run:         ## Deploy the app locally and run an AppSync GraphQL test invocatio
 		SLS_DEBUG=1 npm run deploy && \
 		echo "Serverless app successfully deployed. Now trying to invoke the AppSync API." && \
 		api_id=$$(awslocal appsync list-graphql-apis | jq -r .graphqlApis[0].apiId) && \
-		curl -d '{"query":"mutation {addPost(id: \"id123\"){id{S}}}"}' http://localhost:4605/graphql/$$api_id && \
-		curl -d '{"query":"query {getPosts{id{S}}}"}' http://localhost:4605/graphql/$$api_id && \
+		curl -d '{"query":"mutation {addPost(id: \"id123\"){id}}"}' http://localhost:4605/graphql/$$api_id && \
+		curl -d '{"query":"query {getPosts{id}}"}' http://localhost:4605/graphql/$$api_id && \
 		awslocal dynamodb scan --table-name table1
 
 .PHONY: usage install start lint
